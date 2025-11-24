@@ -1,27 +1,26 @@
-vcp-sidecar-guide
+<h1>vcp-sidecar-guide</h1>
+<p><strong>Official Sidecar Integration Guide for VCP Silver Tier — non-invasive implementation for MT4/MT5, cTrader, and white-label environments.</strong></p>
 
-Official Sidecar Integration Guide for VCP Silver Tier — non-invasive implementation model for MT4/MT5, cTrader, and white-label environments.
+<p>This repository provides the official implementation guide for integrating the <strong>VeritasChain Protocol (VCP)</strong> into platforms that <strong>do not have server-level privileges</strong>, such as MT4/MT5 white-label servers, cTrader WL instances, and proprietary FX/CFD environments.</p>
 
-This repository provides the official implementation guide for integrating the VeritasChain Protocol (VCP) into platforms that do not have server-level privileges, such as MT4/MT5 white-label servers, cTrader WL instances, and proprietary FX/CFD environments.
+<p>The Sidecar model enables <strong>tamper-evident cryptographic logging</strong> without modifying existing trading infrastructure.</p>
 
-The Sidecar model enables tamper-evident cryptographic logging without modifying existing trading infrastructure.
+<hr>
 
-📘 Purpose
+<h2>📘 Purpose</h2>
+<p>The <strong>VCP Sidecar Integration Guide</strong> defines how to implement VCP logging using:</p>
+<ul>
+  <li><strong>vcp-mql-bridge</strong> (MQL5 client-side hook)</li>
+  <li><strong>Manager API integration</strong> (MT4/MT5 server-side read-only polling)</li>
+  <li><strong>Hybrid 2-Layer Logging Architecture</strong></li>
+  <li><strong>VCP Explorer API v1.1</strong> (Merkle proof &amp; certificate verification)</li>
+</ul>
+<p>It is the official technical reference for organizations aiming to deploy <strong>VCP Silver Tier</strong> and/or obtain <strong>VC-Certified</strong> compliance.</p>
 
-The VCP Sidecar Integration Guide defines how to implement VCP logging using:
+<hr>
 
-vcp-mql-bridge (MQL5 client-side hook)
-
-Manager API integration (MT4/MT5 server-side read-only polling)
-
-Hybrid 2-Layer Logging Architecture
-
-VCP Explorer API v1.1 (Merkle proof & certificate verification)
-
-It is the official technical reference for organizations aiming to deploy VCP Silver Tier and/or obtain VC-Certified compliance.
-
-🧩 Repository Structure (recommended)
-/docs
+<h2>🧩 Repository Structure (recommended)</h2>
+<pre><code>/docs
   SIDEcar_GUIDE_en.md
   SIDEcar_GUIDE_ja.md
   diagrams/
@@ -36,116 +35,94 @@ It is the official technical reference for organizations aiming to deploy VCP Si
 
 LICENSE
 README.md
+</code></pre>
 
-🚀 What is the Sidecar Integration Model?
+<hr>
 
-The Sidecar model is a non-invasive, parallel logging architecture that records:
+<h2>🚀 What is the Sidecar Integration Model?</h2>
+<p>The Sidecar model is a <strong>non-invasive, parallel logging architecture</strong> that records:</p>
+<ul>
+  <li><strong>SIG</strong> (Signal)</li>
+  <li><strong>ORD</strong> (Order Sent)</li>
+  <li><strong>ACK</strong> (Order Acknowledged)</li>
+  <li><strong>EXE</strong> (Execution)</li>
+  <li><strong>REJ</strong> (Rejection)</li>
+  <li><strong>CXL</strong> (Cancel)</li>
+  <li><strong>PRT</strong> (Partial Fill)</li>
+  <li><strong>RISK</strong> snapshots</li>
+  <li><strong>GOV</strong> (Algorithm governance metadata)</li>
+  <li><strong>HBT/REC</strong> (heartbeat &amp; recovery)</li>
+</ul>
 
-SIG (Signal)
+<p>…using cryptographic primitives defined in <strong>VCP Specification v1.0</strong>:</p>
+<ul>
+  <li>UUID v7</li>
+  <li>RFC 8785 canonical JSON</li>
+  <li>SHA-256 hash chain</li>
+  <li>RFC 6962 Merkle trees</li>
+  <li>Ed25519 delegated signatures</li>
+</ul>
 
-ORD (Order Sent)
+<p>The Sidecar model allows full VCP compliance <strong>without modifying platform internals</strong>, enabling deployment on:</p>
+<ul>
+  <li>MT4/MT5 White-Label servers</li>
+  <li>cTrader instances</li>
+  <li>Proprietary FX engines</li>
+  <li>Any environment lacking root access</li>
+</ul>
 
-ACK (Order Acknowledged)
+<hr>
 
-EXE (Execution)
+<h2>🔧 Core Documents</h2>
 
-REJ (Rejection)
+<h3>📄 VCP Sidecar Integration Guide v1.0</h3>
+<p>The complete implementation guide (EN/JA) is available in <code>/docs</code>.</p>
+<p>Includes:</p>
+<ul>
+  <li>Architecture diagrams</li>
+  <li>MQL5 bridge implementation</li>
+  <li>Manager API polling adapter</li>
+  <li>2-layer event correlation</li>
+  <li>Recovery &amp; fault tolerance</li>
+  <li>Security &amp; compliance requirements</li>
+  <li>Silver Tier technical requirements</li>
+  <li>Full JSON schema &amp; checklists</li>
+</ul>
 
-CXL (Cancel)
+<h3>📚 Related specs</h3>
+<ul>
+  <li>VCP Specification v1.0</li>
+  <li>VCP Explorer API v1.1</li>
+  <li>VC-Certified Compliance Guide</li>
+</ul>
 
-PRT (Partial Fill)
+<hr>
 
-RISK snapshots
+<h2>🧪 Conformance &amp; Certification</h2>
+<p>Organizations implementing Silver Tier integration can obtain:</p>
 
-GOV (Algorithm governance metadata)
+<h3>✔ VC-Certified (Silver)</h3>
+<p>Verifies that:</p>
+<ul>
+  <li>All required event types are implemented</li>
+  <li>Timestamp precision meets standard</li>
+  <li>Numeric fields use string encoding</li>
+  <li>Merkle proof validation succeeds</li>
+  <li>Log integrity is cryptographically verifiable</li>
+</ul>
 
-HBT/REC (heartbeat & recovery)
+<hr>
 
-…using cryptographic primitives defined in VCP Specification v1.0:
+<h2>🌐 Maintained by</h2>
+<h3>VeritasChain Standards Organization (VSO)</h3>
+<p>Independent, vendor-neutral standards body defining VCP — the global cryptographic audit standard for algorithmic trading.</p>
+<ul>
+  <li>Website: <a href="https://veritaschain.org">https://veritaschain.org</a></li>
+  <li>GitHub: <a href="https://github.com/veritaschain">https://github.com/veritaschain</a></li>
+  <li>Email: <a href="mailto:technical@veritaschain.org">technical@veritaschain.org</a></li>
+</ul>
 
-UUID v7
+<hr>
 
-RFC 8785 canonical JSON
-
-SHA-256 hash chain
-
-RFC 6962 Merkle trees
-
-Ed25519 delegated signatures
-
-The Sidecar model allows full VCP compliance without modifying platform internals, enabling deployment on:
-
-MT4/MT5 White-Label servers
-
-cTrader instances
-
-Proprietary FX engines
-
-Any environment lacking root access
-
-🔧 Core Documents
-📄 VCP Sidecar Integration Guide v1.0
-
-The complete implementation guide (EN/JA) is available in /docs.
-
-Includes:
-
-Architecture diagrams
-
-MQL5 bridge implementation
-
-Manager API polling adapter
-
-2-layer event correlation
-
-Recovery & fault tolerance
-
-Security & compliance requirements
-
-Silver Tier technical requirements
-
-Full JSON schema & checklists
-
-📚 Related specs
-
-VCP Specification v1.0
-
-VCP Explorer API v1.1
-
-VC-Certified Compliance Guide
-
-🧪 Conformance & Certification
-
-Organizations implementing Silver Tier integration can obtain:
-
-✔ VC-Certified (Silver)
-
-Verifies that:
-
-All required event types are implemented
-
-Timestamp precision meets standard
-
-Numeric fields use string encoding
-
-Merkle proof validation succeeds
-
-Log integrity is cryptographically verifiable
-
-(Full guide coming soon.)
-
-🌐 Maintained by
-VeritasChain Standards Organization (VSO)
-
-Independent, vendor-neutral standards body defining VCP —
-the global cryptographic audit standard for algorithmic trading.
-
-Website: https://veritaschain.org
-
-GitHub: https://github.com/veritaschain
-
-Email: technical@veritaschain.org
-
-📜 License
-
-CC BY 4.0 International
+<h2>📜 License</h2>
+<p>CC BY 4.0 International</p>
