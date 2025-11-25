@@ -126,3 +126,12 @@ README.md
 
 <h2>📜 License</h2>
 <p>CC BY 4.0 International</p>
+
+<h2>Conformance Testing & Example Payloads</h2>
+<p>
+  Official VCP v1.0 conformance tests and example payload collections are available at:<br>
+  <a href='https://github.com/veritaschain/vcp-conformance-guide'>
+    https://github.com/veritaschain/vcp-conformance-guide
+  </a>
+</p>
+
