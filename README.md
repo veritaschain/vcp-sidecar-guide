@@ -1,137 +1,227 @@
-<h1>vcp-sidecar-guide</h1>
-<p><strong>Official Sidecar Integration Guide for VCP Silver Tier — non-invasive implementation for MT4/MT5, cTrader, and white-label environments.</strong></p>
+# vcp-sidecar-guide
 
-<p>This repository provides the official implementation guide for integrating the <strong>VeritasChain Protocol (VCP)</strong> into platforms that <strong>do not have server-level privileges</strong>, such as MT4/MT5 white-label servers, cTrader WL instances, and proprietary FX/CFD environments.</p>
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![VCP v1.0](https://img.shields.io/badge/VCP-v1.0-green.svg)](https://github.com/veritaschain/vcp-spec)
+[![VC-Certified](https://img.shields.io/badge/VC--Certified-Silver-blue.svg)](https://veritaschain.org/certified/)
 
-<p>The Sidecar model enables <strong>tamper-evident cryptographic logging</strong> without modifying existing trading infrastructure.</p>
+**Official Sidecar Integration Guide for VCP Silver Tier — non-invasive implementation for MT4/MT5, cTrader, and white-label environments.**
 
-<hr>
+This repository provides the official implementation guide and **production-ready code** for integrating the **VeritasChain Protocol (VCP)** into platforms that **do not have server-level privileges**.
 
-<h2>📘 Purpose</h2>
-<p>The <strong>VCP Sidecar Integration Guide</strong> defines how to implement VCP logging using:</p>
-<ul>
-  <li><strong>vcp-mql-bridge</strong> (MQL5 client-side hook)</li>
-  <li><strong>Manager API integration</strong> (MT4/MT5 server-side read-only polling)</li>
-  <li><strong>Hybrid 2-Layer Logging Architecture</strong></li>
-  <li><strong>VCP Explorer API v1.1</strong> (Merkle proof &amp; certificate verification)</li>
-</ul>
-<p>It is the official technical reference for organizations aiming to deploy <strong>VCP Silver Tier</strong> and/or obtain <strong>VC-Certified</strong> compliance.</p>
+---
 
-<hr>
+## 🚀 Quick Start
 
-<h2>🧩 Repository Structure (recommended)</h2>
-<pre><code>/docs
-  SIDEcar_GUIDE_en.md
-  SIDEcar_GUIDE_ja.md
-  diagrams/
+### Python
 
-/examples
-  mql5/
-  python/
-  c++/
+```bash
+pip install requests
+```
 
-/schema
-  vcp-event.schema.json
+```python
+from src.python.vcp_sidecar_adapter_v1_0 import VCPEventFactory, VCPEventSerializer, Tier
 
-LICENSE
-README.md
-</code></pre>
+factory = VCPEventFactory(venue_id="MY_PROP_FIRM", tier=Tier.SILVER)
 
-<hr>
+# Create signal event
+signal = factory.create_signal_event(
+    symbol="XAUUSD",
+    account_id="12345",
+    algo_id="MY_ALGO",
+    algo_version="1.0.0",
+    confidence="0.85"
+)
 
-<h2>🚀 What is the Sidecar Integration Model?</h2>
-<p>The Sidecar model is a <strong>non-invasive, parallel logging architecture</strong> that records:</p>
-<ul>
-  <li><strong>SIG</strong> (Signal)</li>
-  <li><strong>ORD</strong> (Order Sent)</li>
-  <li><strong>ACK</strong> (Order Acknowledged)</li>
-  <li><strong>EXE</strong> (Execution)</li>
-  <li><strong>REJ</strong> (Rejection)</li>
-  <li><strong>CXL</strong> (Cancel)</li>
-  <li><strong>PRT</strong> (Partial Fill)</li>
-  <li><strong>RISK</strong> snapshots</li>
-  <li><strong>GOV</strong> (Algorithm governance metadata)</li>
-  <li><strong>HBT/REC</strong> (heartbeat &amp; recovery)</li>
-</ul>
+print(VCPEventSerializer.to_json(signal, indent=2))
+```
 
-<p>…using cryptographic primitives defined in <strong>VCP Specification v1.0</strong>:</p>
-<ul>
-  <li>UUID v7</li>
-  <li>RFC 8785 canonical JSON</li>
-  <li>SHA-256 hash chain</li>
-  <li>RFC 6962 Merkle trees</li>
-  <li>Ed25519 delegated signatures</li>
-</ul>
+### MQL5
 
-<p>The Sidecar model allows full VCP compliance <strong>without modifying platform internals</strong>, enabling deployment on:</p>
-<ul>
-  <li>MT4/MT5 White-Label servers</li>
-  <li>cTrader instances</li>
-  <li>Proprietary FX engines</li>
-  <li>Any environment lacking root access</li>
-</ul>
+```mql5
+#include <VCP/vcp_mql_bridge_v1_0.mqh>
 
-<hr>
+int OnInit()
+{
+    VCP_CONFIG config;
+    config.api_key = InpVCPApiKey;
+    config.endpoint = "https://api.veritaschain.org";
+    config.venue_id = "MY_PROP_FIRM";
+    config.tier = VCP_TIER_SILVER;
+    config.async_mode = true;
+    
+    VCP_Initialize(config);
+    return INIT_SUCCEEDED;
+}
+```
 
-<h2>🔧 Core Documents</h2>
+---
 
-<h3>📄 VCP Sidecar Integration Guide v1.0</h3>
-<p>The complete implementation guide (EN/JA) is available in <code>/docs</code>.</p>
-<p>Includes:</p>
-<ul>
-  <li>Architecture diagrams</li>
-  <li>MQL5 bridge implementation</li>
-  <li>Manager API polling adapter</li>
-  <li>2-layer event correlation</li>
-  <li>Recovery &amp; fault tolerance</li>
-  <li>Security &amp; compliance requirements</li>
-  <li>Silver Tier technical requirements</li>
-  <li>Full JSON schema &amp; checklists</li>
-</ul>
+## 📁 Repository Structure
 
-<h3>📚 Related specs</h3>
-<ul>
-  <li>VCP Specification v1.0</li>
-  <li>VCP Explorer API v1.1</li>
-  <li>VC-Certified Compliance Guide</li>
-</ul>
+```
+vcp-sidecar-guide/
+├── README.md
+├── LICENSE
+├── VCP_SIDECAR_INTEGRATION_GUIDE_EN.md    # Full guide (English)
+├── VCP_SIDECAR_INTEGRATION_GUIDE_JA.md    # Full guide (Japanese)
+│
+├── src/                                    # Production-ready implementations
+│   ├── mql5/
+│   │   ├── vcp_mql_bridge_v1_0.mqh        # MQL5 bridge library
+│   │   └── README.md                       # MQL5 documentation
+│   └── python/
+│       ├── vcp_sidecar_adapter_v1_0.py    # Python adapter
+│       ├── requirements.txt                # Dependencies
+│       └── README.md                       # Python documentation
+│
+└── examples/                               # Usage examples
+    ├── mql5/
+    │   └── ExampleEA.mq5                  # Complete EA example
+    └── python/
+        └── example_usage.py               # Python usage examples
+```
 
-<hr>
+---
 
-<h2>🧪 Conformance &amp; Certification</h2>
-<p>Organizations implementing Silver Tier integration can obtain:</p>
+## 📘 What is the Sidecar Integration Model?
 
-<h3>✔ VC-Certified (Silver)</h3>
-<p>Verifies that:</p>
-<ul>
-  <li>All required event types are implemented</li>
-  <li>Timestamp precision meets standard</li>
-  <li>Numeric fields use string encoding</li>
-  <li>Merkle proof validation succeeds</li>
-  <li>Log integrity is cryptographically verifiable</li>
-</ul>
+The Sidecar model is a **non-invasive, parallel logging architecture** that records trading events without modifying existing infrastructure:
 
-<hr>
+| Event Type | Code | Description |
+|------------|------|-------------|
+| SIG | 1 | Signal/Decision generated |
+| ORD | 2 | Order sent |
+| ACK | 3 | Order acknowledged |
+| EXE | 4 | Full execution |
+| PRT | 5 | Partial fill |
+| REJ | 6 | Order rejected |
+| CXL | 7 | Order cancelled |
+| HBT | 98 | Heartbeat |
 
-<h2>🌐 Maintained by</h2>
-<h3>VeritasChain Standards Organization (VSO)</h3>
-<p>Independent, vendor-neutral standards body defining VCP — the global cryptographic audit standard for algorithmic trading.</p>
-<ul>
-  <li>Website: <a href="https://veritaschain.org">https://veritaschain.org</a></li>
-  <li>GitHub: <a href="https://github.com/veritaschain">https://github.com/veritaschain</a></li>
-  <li>Email: <a href="mailto:technical@veritaschain.org">technical@veritaschain.org</a></li>
-</ul>
+### Cryptographic Primitives (VCP v1.0)
 
-<hr>
+- **UUID v7** (RFC 9562) — Timestamp-ordered identifiers
+- **RFC 8785** — Canonical JSON serialization
+- **SHA-256** — Hash chain integrity
+- **RFC 6962** — Merkle tree anchoring
+- **Ed25519** — Delegated signatures (optional for Silver)
 
-<h2>📜 License</h2>
-<p>CC BY 4.0 International</p>
+---
 
-<h2>Conformance Testing & Example Payloads</h2>
-<p>
-  Official VCP v1.0 conformance tests and example payload collections are available at:<br>
-  <a href='https://github.com/veritaschain/vcp-conformance-guide'>
-    https://github.com/veritaschain/vcp-conformance-guide
-  </a>
+## 🎯 Target Environments
+
+The Sidecar model enables VCP compliance **without server modification**:
+
+| Platform | Integration Method |
+|----------|-------------------|
+| MT4/MT5 White-Label | vcp-mql-bridge + Manager API |
+| cTrader WL | Manager API polling |
+| Proprietary FX engines | Python adapter |
+| Any read-only environment | Hybrid 2-layer logging |
+
+---
+
+## 📦 Components
+
+### src/mql5/vcp_mql_bridge_v1_0.mqh
+
+Full-featured MQL5 library for VCP event logging:
+
+- ✅ VCP v1.0 specification compliant
+- ✅ UUID v7 generation (RFC 9562)
+- ✅ 3-layer event structure (header/payload/security)
+- ✅ SHA-256 hash chain
+- ✅ Async queue with batch processing
+- ✅ GDPR-compliant account pseudonymization
+
+### src/python/vcp_sidecar_adapter_v1_0.py
+
+Python implementation for server-side integration:
+
+- ✅ VCPEventFactory — Event creation
+- ✅ VCPEventSerializer — JSON serialization
+- ✅ VCCClient — API communication
+- ✅ VCPManagerAdapter — MT5 Manager API polling
+- ✅ EventCorrelator — Chain validation
+
+---
+
+## 🧪 Running Examples
+
+### Python
+
+```bash
+cd vcp-sidecar-guide
+pip install -r src/python/requirements.txt
+python examples/python/example_usage.py
+```
+
+### MQL5
+
+1. Copy `src/mql5/vcp_mql_bridge_v1_0.mqh` to `MQL5/Include/VCP/`
+2. Copy `examples/mql5/ExampleEA.mq5` to `MQL5/Experts/`
+3. Compile and attach to chart
+4. Add `https://api.veritaschain.org` to WebRequest allowed URLs
+
+---
+
+## ✅ VC-Certified (Silver) Requirements
+
+| Requirement | Status |
+|-------------|--------|
+| All event types implemented | ✅ |
+| UUID v7 format (RFC 9562) | ✅ |
+| Dual timestamp format | ✅ |
+| 3-layer structure | ✅ |
+| SHA-256 hash chain | ✅ |
+| Numeric fields as strings | ✅ |
+| Account pseudonymization | ✅ |
+
+---
+
+## 📚 Documentation
+
+| Document | Description |
+|----------|-------------|
+| [Integration Guide (EN)](VCP_SIDECAR_INTEGRATION_GUIDE_EN.md) | Complete implementation guide |
+| [Integration Guide (JA)](VCP_SIDECAR_INTEGRATION_GUIDE_JA.md) | 日本語版実装ガイド |
+| [src/mql5/README.md](src/mql5/README.md) | MQL5 API reference |
+| [src/python/README.md](src/python/README.md) | Python API reference |
+
+---
+
+## 🔗 Related Repositories
+
+| Repository | Description |
+|------------|-------------|
+| [vcp-spec](https://github.com/veritaschain/vcp-spec) | VCP Specification v1.0 |
+| [vcp-conformance-guide](https://github.com/veritaschain/vcp-conformance-guide) | Conformance tests & example payloads |
+| [vcp-sdk-spec](https://github.com/veritaschain/vcp-sdk-spec) | SDK interface specification |
+| [vcp-explorer-api](https://github.com/veritaschain/vcp-explorer-api) | Explorer API reference |
+
+---
+
+## 🌐 Maintained by
+
+### VeritasChain Standards Organization (VSO)
+
+Independent, vendor-neutral standards body defining VCP — the global cryptographic audit standard for algorithmic trading.
+
+- **Website:** [https://veritaschain.org](https://veritaschain.org)
+- **GitHub:** [https://github.com/veritaschain](https://github.com/veritaschain)
+- **Email:** [technical@veritaschain.org](mailto:technical@veritaschain.org)
+
+---
+
+## 📜 License
+
+CC BY 4.0 International
+
+Copyright © 2025 VeritasChain Standards Organization (VSO)
+
+---
+
+<p align="center">
+  <strong>"Verify, Don't Trust"</strong><br>
+  <em>Encoding Trust in the Algorithmic Age</em>
 </p>
-
