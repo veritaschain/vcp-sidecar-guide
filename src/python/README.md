@@ -1,22 +1,29 @@
 # VCP Python Sidecar Adapter
 
-**VCP v1.0 Compliant Python Implementation**
+**Illustrative Python example for VCP v1.0 (not a conformance claim)**
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![VCP v1.0](https://img.shields.io/badge/VCP-v1.0-green.svg)](https://github.com/veritaschain/vcp-spec)
 
+> **Status notice — 25 October 2026.** Illustrative legacy code for VCP v1.0.
+> The MQL5 bridge's hash is a placeholder (not SHA-256 over the canonical
+> event); the Python adapter's `json.dumps` canonicalization is not RFC 8785;
+> there is no Merkle or external-anchoring code; it does not meet VCP
+> v1.1/v1.2 Silver requirements (external anchoring every 24 h, signatures).
+> First-party; not certified.
+
 ## Overview
 
-This module provides a VCP v1.0 specification-compliant implementation for generating cryptographically verifiable audit trails in Python environments.
+This module is an illustrative example of generating VCP v1.0-style audit events in Python environments. It hashes `json.dumps(..., sort_keys=True)` output, which is not RFC 8785 canonicalization, and it does not sign, batch or anchor events.
 
 ### Features
 
-- ✅ **VCP v1.0 Compliant** - Full specification compliance
+- **VCP v1.0 event layout** - illustrative; not a conformance claim
 - ✅ **UUID v7 (RFC 9562)** - Timestamp-ordered unique identifiers
 - ✅ **3-Layer Event Structure** - header / payload / security
-- ✅ **SHA-256 Hash Chain** - Tamper-evident audit trail
-- ✅ **GDPR Compliant** - Account ID pseudonymization
+- ✅ **SHA-256 hash chain linking** - over `json.dumps` output (not RFC 8785)
+- ✅ **Account ID pseudonymization** - pseudonymization alone does not determine GDPR compliance
 - ✅ **Async Queue** - Non-blocking event transmission
 - ✅ **MT5 Manager API** - Server-side trade polling
 
@@ -69,7 +76,7 @@ print(VCPEventSerializer.to_json(signal, indent=2))
 
 ### VCPEventFactory
 
-Factory class for creating VCP-compliant events.
+Factory class for creating illustrative VCP v1.0-style events.
 
 ```python
 factory = VCPEventFactory(
@@ -197,6 +204,6 @@ Copyright © 2025 VeritasChain Standards Organization (VSO)
 ## Resources
 
 - [VCP Specification](https://github.com/veritaschain/vcp-spec)
-- [Integration Guide](../VCP_SIDECAR_INTEGRATION_GUIDE_EN.md)
+- [Integration Guide](../../VCP_SIDECAR_INTEGRATION_GUIDE_EN.md)
 - [VSO Website](https://veritaschain.org)
 - [Support](mailto:support@veritaschain.org)

@@ -2,11 +2,19 @@
 ## Silver Tier Technical Guide v1.0
 
 **Document ID:** VSO-TECH-SIG-001  
-**Status:** Production Ready  
+**Status:** Illustrative legacy guide for VCP v1.0 (status revised 2026-10-25; see the notice below)  
 **Category:** Implementation Guide / Silver Tier  
 **Date:** 2025-11-25  
 **Maintainer:** VeritasChain Standards Organization (VSO)  
 **License:** CC BY 4.0 International
+
+> **Status notice — 25 October 2026.** Illustrative legacy code for VCP v1.0.
+> The MQL5 bridge's hash is a placeholder (not SHA-256 over the canonical
+> event); the Python adapter's `json.dumps` canonicalization is not RFC 8785;
+> there is no Merkle or external-anchoring code; it does not meet VCP
+> v1.1/v1.2 Silver requirements (external anchoring every 24 h, signatures).
+> First-party; not certified.
+> The current specification is [VCP v1.2](https://github.com/veritaschain/vcp-spec/tree/main/spec/v1.2).
 
 ---
 

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-VCP Python Sidecar Adapter v1.0 - VCP Specification Compliant
+VCP Python Sidecar Adapter v1.0 - illustrative legacy example (not a conformance claim)
 Document ID: VSO-SDK-PY-001
 License: CC BY 4.0 International
 Maintainer: VeritasChain Standards Organization (VSO)
 
-This module provides a VCP v1.0 compliant implementation for:
+This module illustrates, for VCP v1.0 (status notice 2026-10-25: json.dumps is not
+RFC 8785; no signing, Merkle batching or external anchoring; not certified):
 - Manager API integration (MT4/MT5)
 - Event generation with proper 3-layer structure
 - UUID v7 generation (RFC 9562)
@@ -244,7 +245,7 @@ class UUIDv7Generator:
 # VCP Event Factory
 # =============================================================================
 class VCPEventFactory:
-    """Factory for creating VCP-compliant events"""
+    """Factory for creating illustrative VCP v1.0-style events"""
     
     def __init__(
         self,
@@ -283,7 +284,7 @@ class VCPEventFactory:
         return timestamp_int, timestamp_iso
     
     def _compute_event_hash(self, event: VCPEvent) -> str:
-        """Compute SHA-256 hash of event (RFC 8785 canonical JSON)"""
+        """Compute SHA-256 hash of event over json.dumps output (NOT RFC 8785; see status notice)"""
         # Create canonical JSON representation
         canonical = {
             "header": {
@@ -296,13 +297,13 @@ class VCPEventFactory:
             "prev_hash": event.security.prev_hash
         }
         
-        # Sort keys for RFC 8785 compliance
+        # Sorted keys only; this is not RFC 8785 canonicalization
         canonical_json = json.dumps(canonical, sort_keys=True, separators=(',', ':'))
         
         return hashlib.sha256(canonical_json.encode('utf-8')).hexdigest()
     
     def _pseudonymize_account(self, account_id: str, salt: str = "") -> str:
-        """Pseudonymize account ID (GDPR compliant)"""
+        """Pseudonymize account ID (does not by itself determine GDPR compliance)"""
         if not salt:
             salt = f"vcp_{self.venue_id}_"
         combined = f"{salt}{account_id}"
@@ -522,7 +523,7 @@ class VCPEventFactory:
 # VCP Event Serializer
 # =============================================================================
 class VCPEventSerializer:
-    """Serialize VCP events to JSON (RFC 8785 canonical)"""
+    """Serialize VCP events to JSON (sorted keys; not RFC 8785)"""
     
     @staticmethod
     def to_dict(event: VCPEvent) -> Dict:
@@ -928,7 +929,7 @@ if __name__ == "__main__":
     )
     
     # Print events as JSON
-    print("=== VCP v1.0 Compliant Events ===\n")
+    print("=== VCP v1.0 Example Events (illustrative) ===\n")
     
     print("--- Signal Event (SIG) ---")
     print(VCPEventSerializer.to_json(signal, indent=2))

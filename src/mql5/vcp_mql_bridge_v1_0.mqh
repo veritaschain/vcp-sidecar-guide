@@ -1,5 +1,7 @@
 //+------------------------------------------------------------------+
-//| VCP MQL5 Bridge v1.0 - VCP Specification Compliant               |
+//| VCP MQL5 Bridge v1.0 - illustrative legacy example               |
+//| Not a conformance claim: placeholder hash (not SHA-256), no      |
+//| signing, Merkle batching or anchoring; not certified (2026-10-25)|
 //| Document ID: VSO-SDK-MQL5-001                                     |
 //| License: CC BY 4.0 International                                  |
 //| Maintainer: VeritasChain Standards Organization (VSO)            |
@@ -211,7 +213,7 @@ private:
     // Timestamp handling
     void   GetTimestamps(string &ts_int, string &ts_iso);
     
-    // Account pseudonymization (GDPR compliant)
+    // Account pseudonymization (placeholder hash; not a GDPR compliance determination)
     string PseudonymizeAccount(long login);
     
     // JSON serialization
@@ -382,7 +384,7 @@ void CVCPLogger::GetTimestamps(string &ts_int, string &ts_iso)
 }
 
 //+------------------------------------------------------------------+
-//| Pseudonymize Account ID (GDPR Compliant)                          |
+//| Pseudonymize Account ID (placeholder hash; see status notice)     |
 //+------------------------------------------------------------------+
 string CVCPLogger::PseudonymizeAccount(long login)
 {
