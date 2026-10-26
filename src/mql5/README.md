@@ -1,22 +1,29 @@
 # VCP MQL5 Bridge
 
-**VCP v1.0 Compliant MQL5 Implementation**
+**Illustrative MQL5 example for VCP v1.0 (not a conformance claim)**
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![MQL5](https://img.shields.io/badge/MQL5-MetaTrader%205-blue.svg)](https://www.mql5.com/)
 [![VCP v1.0](https://img.shields.io/badge/VCP-v1.0-green.svg)](https://github.com/veritaschain/vcp-spec)
 
+> **Status notice — 25 October 2026.** Illustrative legacy code for VCP v1.0.
+> The MQL5 bridge's hash is a placeholder (not SHA-256 over the canonical
+> event); the Python adapter's `json.dumps` canonicalization is not RFC 8785;
+> there is no Merkle or external-anchoring code; it does not meet VCP
+> v1.1/v1.2 Silver requirements (external anchoring every 24 h, signatures).
+> First-party; not certified.
+
 ## Overview
 
-This library provides a VCP v1.0 specification-compliant implementation for generating cryptographically verifiable audit trails directly from MetaTrader 5 Expert Advisors (EAs).
+This library is an illustrative example of generating VCP v1.0-style audit events directly from MetaTrader 5 Expert Advisors (EAs). Its event hash is a placeholder, so the events it produces are not cryptographically verifiable as written.
 
 ### Features
 
-- ✅ **VCP v1.0 Compliant** - Full specification compliance
+- **VCP v1.0 event layout** - illustrative; not a conformance claim
 - ✅ **UUID v7 (RFC 9562)** - Timestamp-ordered unique identifiers
 - ✅ **3-Layer Event Structure** - header / payload / security
-- ✅ **SHA-256 Hash Chain** - Tamper-evident audit trail
-- ✅ **GDPR Compliant** - Account ID pseudonymization
+- ⚠️ **Hash chain linking** - uses a placeholder hash, not SHA-256; replace before any use
+- ⚠️ **Account ID pseudonymization** - placeholder hash; pseudonymization alone does not determine GDPR compliance
 - ✅ **Async Queue** - Non-blocking event transmission
 - ✅ **Batch Processing** - Efficient network usage
 
@@ -301,6 +308,6 @@ Copyright © 2025 VeritasChain Standards Organization (VSO)
 ## Resources
 
 - [VCP Specification](https://github.com/veritaschain/vcp-spec)
-- [Integration Guide](../VCP_SIDECAR_INTEGRATION_GUIDE_EN.md)
+- [Integration Guide](../../VCP_SIDECAR_INTEGRATION_GUIDE_EN.md)
 - [VSO Website](https://veritaschain.org)
 - [Support](mailto:support@veritaschain.org)

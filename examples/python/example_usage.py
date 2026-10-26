@@ -5,7 +5,7 @@ VeritasChain Standards Organization (VSO)
 https://veritaschain.org
 
 This script demonstrates how to use the VCP Python Sidecar Adapter
-to generate VCP v1.0 compliant audit trails.
+to generate illustrative VCP v1.0-style audit events (not a conformance claim).
 
 Examples include:
 1. Basic event creation
@@ -139,7 +139,7 @@ def example_basic_events():
 def example_json_serialization(events):
     """
     Demonstrates JSON serialization of VCP events.
-    Shows full JSON structure compliant with VCP v1.0 specification.
+    Shows the full VCP v1.0-style JSON structure (illustrative).
     """
     print("\n" + "=" * 60)
     print("Example 2: JSON Serialization")

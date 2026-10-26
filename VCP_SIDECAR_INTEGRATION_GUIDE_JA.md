@@ -2,11 +2,17 @@
 ## Silver Tier 技術ガイド v1.0
 
 **Document ID:** VSO-TECH-SIG-001  
-**Status:** Production Ready  
+**Status:** VCP v1.0向け例示用レガシーガイド（2026-10-25改訂。下記注記を参照）  
 **Category:** Implementation Guide / Silver Tier  
 **Date:** 2025-11-25  
 **Maintainer:** VeritasChain Standards Organization (VSO)  
 **License:** CC BY 4.0 International
+
+> **ステータスに関する注記（2026年10月25日）** 本書のコードはVCP v1.0向けの例示用レガシーコードです。
+> MQL5ブリッジのハッシュはプレースホルダであり、正規化イベントに対するSHA-256ではありません。
+> Pythonアダプタの`json.dumps`による正規化はRFC 8785ではありません。Merkleツリーや外部アンカリングのコードはありません。
+> VCP v1.1/v1.2のSilver要件（24時間ごとの外部アンカリング、署名）を満たしません。
+> ファーストパーティ製であり、認証を受けていません。現行仕様は[VCP v1.2](https://github.com/veritaschain/vcp-spec/tree/main/spec/v1.2)です。
 
 ---
 
