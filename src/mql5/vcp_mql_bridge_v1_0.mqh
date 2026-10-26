@@ -224,7 +224,7 @@ private:
     string GovDataToJSON(VCP_GOV_DATA &gov);
     string SecurityToJSON(VCP_SECURITY &security);
     
-    // Hash computation (SHA-256)
+    // Hash computation (placeholder hash, not SHA-256; see README)
     string ComputeEventHash(VCP_EVENT &event);
     
     // Network
@@ -388,7 +388,7 @@ void CVCPLogger::GetTimestamps(string &ts_int, string &ts_iso)
 //+------------------------------------------------------------------+
 string CVCPLogger::PseudonymizeAccount(long login)
 {
-    // Use SHA-256 hash with salt
+    // Placeholder salted hash, not SHA-256 (see README)
     string salt = "vcp_" + m_config.venue_id + "_";
     string input = salt + IntegerToString(login);
     
