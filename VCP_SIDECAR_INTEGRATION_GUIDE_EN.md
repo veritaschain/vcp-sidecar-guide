@@ -630,7 +630,7 @@ class ManagerAPIAdapter:
         return hashlib.sha256(unique_str.encode()).hexdigest()[:16]
     
     def _pseudonymize_account(self, login: int) -> str:
-        """Pseudonymize account ID (GDPR compliant)"""
+        """Pseudonymize account ID (does not determine legal compliance)"""
         salt = "YOUR_SECRET_SALT"  # Load from environment variable
         combined = f"{salt}:{login}"
         hashed = hashlib.sha256(combined.encode()).hexdigest()
@@ -1296,7 +1296,7 @@ Account IDs and personally identifiable information must be pseudonymized before
 
 ```python
 def pseudonymize_account_id(login: int, salt: str) -> str:
-    """Pseudonymize account ID (GDPR compliant)"""
+    """Pseudonymize account ID (does not determine legal compliance)"""
     combined = f"{salt}:{login}"
     hashed = hashlib.sha256(combined.encode()).hexdigest()
     return f"acc_{hashed[:16]}"
@@ -1482,6 +1482,7 @@ def health_check():
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
+| 1.0 (editorial) | 2026-11-02 | Remove unsupported legal-compliance claims from embedded pseudonymization docstrings; example behavior unchanged | VSO |
 | 1.0 | 2025-11-25 | Initial release | VSO Technical Committee |
 
 ---

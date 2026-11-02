@@ -240,3 +240,7 @@ Copyright © 2025 VeritasChain Standards Organization (VSO)
   <strong>"Verify, Don't Trust"</strong><br>
   <em>Encoding Trust in the Algorithmic Age</em>
 </p>
+
+## License scope clarification — 2 November 2026
+
+Documentation remains CC BY 4.0. First-party code, scripts, code examples and schemas additionally offer [Apache-2.0](LICENSE-CODE); existing licenses and third-party notices remain in effect. See [LICENSE](LICENSE) for the scope and preserved prior terms. This editorial licensing note does not change protocol requirements or claim conformance.
