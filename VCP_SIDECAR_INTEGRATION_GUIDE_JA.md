@@ -1716,7 +1716,7 @@ if not VCC_API_KEY:
 
 ```python
 def pseudonymize_account_id(login: int, salt: str) -> str:
-    """アカウントIDの仮名化（GDPR準拠）"""
+    """アカウントIDの仮名化（法令適合を判断するものではありません）"""
     combined = f"{salt}:{login}"
     hashed = hashlib.sha256(combined.encode()).hexdigest()
     return f"acc_{hashed[:16]}"
@@ -1908,6 +1908,7 @@ def health_check():
 
 | バージョン | 日付 | 変更内容 | 著者 |
 |-----------|------|----------|------|
+| 1.0（編集上の訂正） | 2026-11-02 | 本文内の仮名化コードの説明から根拠のない法令適合の表現を削除。例示コードの動作は変更なし | VSO |
 | 1.0 | 2025-11-25 | 初版リリース | VSO Technical Committee |
 
 ---
